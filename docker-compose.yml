@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb-init/mongodb-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}
+    networks:
+      - library-network
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_DB_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_DB_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_DB_USERNAME}:${MONGO_DB_PASSWORD}@mongo:27017/
+    networks:
+      - library-network
+  library-be:
+    build:
+      context: ./library-be
+      dockerfile: Dockerfile
+    container_name: library-be
+    ports:
+      - '8082:8082'
+    restart: on-failure
+    environment:
+      - MONGO_DB_URI=${MONGO_DB_URI}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+    networks:
+      - library-network
+  library-ui:
+    build:
+      context: ./library-ui
+      dockerfile: Dockerfile
+    container_name: library-ui
+    command: npm start
+    ports:
+    - '8000:8000'
+    networks:
+      - library-network
+
+networks:
+  library-network:
+    driver: bridge
