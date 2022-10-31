@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: library-be
+  main:
+    banner-mode: off
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI}
+      database: ${MONGO_DB_NAME}
+server:
+  port: 8082
