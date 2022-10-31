@@ -1,0 +1,48 @@
+<div style="margin: 20px;" ng-class="{'visible' : loading}" >
+  <md-progress-linear md-mode="query" ng-disabled="!loading"></md-progress-linear>
+  <div ng-if="loading" style="display: block; position: relative; background-color: rgba(255, 235, 169, 0.25); height: 85px; width: 100%;">
+    <span style="display: inline-block; margin-top: 10px; padding: 25px; font-size: 0.9em;">Saving book, please wait...</span>
+  </div>
+</div>
+
+<div layout="column" ng-cloak style="margin: 40px;">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Add Book</span>
+    </div>
+  </md-toolbar>
+  
+  <md-content layout-padding>
+    <form class="md-inline-form" name="bookForm" ng-submit="save">
+
+      <div class="row">
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input required name="name" ng-model="book.name">
+          <div ng-messages="bookForm.name.$error">
+            <div ng-message="required">Name is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div class="row">
+        <md-input-container class="md-block">
+          <label>Author</label>
+          <input required name="author" ng-model="book.author">
+          <div ng-messages="bookForm.author.$error">
+            <div ng-message="required">Author is required.</div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <section layout="row" layout-sm="column" layout-align="center center" style="margin-bottom: 30px;" layout-wrap>
+        <div vc-recaptcha key="'6Lfkp8UiAAAAAPBdCoJJaCryyIZ4UEpAkeuJ4L1y'" ng-model="book.captcha" size="normal"></div>
+      </section>
+    
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-button ng-disabled="bookForm.$invalid" class="md-raised md-accent" style="color: white;" ng-click="save()">Save</md-button>
+      </section>
+    </form>
+  </md-content>
+
+</div>

@@ -1,0 +1,104 @@
+<div style="margin: 20px;" ng-class="{'visible' : loading}" >
+  <md-progress-linear md-mode="query" ng-disabled="!loading"></md-progress-linear>
+  <div ng-if="loading" style="display: block; position: relative; background-color: rgba(255, 235, 169, 0.25); height: 85px; width: 100%;">
+    <span style="display: inline-block; margin-top: 10px; padding: 25px; font-size: 0.9em;">Loading books in library...</span>
+  </div>
+</div>
+
+
+<div ng-if="!loading" style="margin: 40px;">
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>List Books</span>
+      <div flex></div>
+      <md-button class="md-icon-button" ng-click="getAll(pageable.page, pageable.limit)">
+        <md-icon>refresh</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+    
+    <!-- exact table from live demo -->
+    <md-table-container>
+      <table md-table ng-model="selected" md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column md-numeric md-order-by="id">Id</th>
+            <th md-column md-order-by="name"><span>Name</span></th>
+            <th md-column md-order-by="author"><span>Author</span></th>
+            <th md-column>Operations</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select="book" md-select-id="id" md-auto-select ng-repeat="book in books">
+            <td md-cell>{{book.id}}</td>
+            <td md-cell>{{book.name}}</td>
+            <td md-cell>{{book.author}}</td>
+            <td md-cell>
+              <md-button class="md-fab md-raised md-mini md-primary" aria-label="Update Book" ng-click="showUpdateDialog($event, book.id)">
+                <md-icon>update</md-icon>
+              </md-button>
+              <md-button style="color:red;" class="md-fab md-mini" aria-label="Delete Book" ng-click="delete(book.id)">
+                <md-icon>delete</md-icon>
+              </md-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    
+    <md-table-pagination md-limit="pageable.limit" md-limit-options="[5, 10, 15]" md-page="pageable.page" md-total="{{pageable.totalElements}}" md-on-paginate="getAll" md-page-select></md-table-pagination>
+</div>
+
+<script type="text/ng-template" id="update-book.html">
+  <md-dialog aria-label="Update Book">
+    
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Update Book</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form class="md-inline-form" name="bookForm" ng-submit=onSubmit()>
+
+          <div class="row">
+            <md-input-container class="md-block">
+              <label>Id</label>
+              <input required name="id" ng-model="book.id" disabled>
+            </md-input-container>
+          </div>
+
+          <div class="row">
+            <md-input-container class="md-block">
+              <label>Name</label>
+              <input required name="name" ng-model="book.name">
+              <div ng-messages="bookForm.name.$error">
+                <div ng-message="required">Name is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+    
+          <div class="row">
+            <md-input-container class="md-block">
+              <label>Author</label>
+              <input required name="author" ng-model="book.author">
+              <div ng-messages="bookForm.author.$error">
+                <div ng-message="required">Author is required.</div>
+              </div>
+            </md-input-container>
+          </div>
+        </form>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <md-button class="md-raised md-accent" style="color: white" ng-click="onSubmit()">
+        Update
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>

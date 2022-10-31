@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Library App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/angular-material-data-table/dist/md-data-table.min.css" type="text/css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="lib/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.css">
+  <script src="lib/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+  <md-toolbar class="md-hue-1">
+    <div layout="row">
+      <h2 class="md-toolbar-tools">
+        <span style="color: white">Library UI</span>
+      </h2>
+    </div>
+  </md-toolbar>
+  
+
+  <h2 style="text-align:center">Welcome to the Library</h2>
+  
+  <md-divider></md-divider>
+
+  <section style="margin-top:20px; margin-bottom:20px;" layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <md-button href="#!/list-book" class="md-raised">View Books</md-button>
+    <md-button href="#!/add-book" class="md-raised md-primary">Add Book</md-button>
+  </section>
+
+  <md-divider></md-divider>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-view></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="app.js"></script>
+  <script src="list-book/list-book.js"></script>
+  <script src="add-book/add-book.js"></script>
+  <script src="lib/angular-aria/angular-aria.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="lib/angular-messages/angular-messages.js"></script>
+  <script src="lib/angular-material/angular-material.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+  <script src="lib/angular-recaptcha/release/angular-recaptcha.js" type="text/javascript"></script>
+  <script src="lib/angular-material-data-table/dist/md-data-table.min.js" type="text/javascript"></script>
+  <script src="lib/angular-sweetalert/SweetAlert.min.js" type="text/javascript"></script>
+  <script src="lib/angular-sweetalert/node_modules/sweetalert/lib/sweet-alert.min.js"></script>
+</body>
+</html>
